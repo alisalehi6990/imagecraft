@@ -24,6 +24,13 @@ services:
       - "27018:27017"
     volumes:
       - imagecraft_mongodb_data:/data/db
-
+  ngrok:
+    image: ngrok/ngrok:latest
+    environment:
+      - .env
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
+    command: http --domain=${NGROK_DOMAIN} app:3000
+    depends_on:
+      - app
 volumes:
   imagecraft_mongodb_data: 
